@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./assets/site.css";
 import Home from "./components/Home";
 import Character from "./components/Character";
+import Planets from "./components/Planets";
 
 export const UserContext = createContext();
 
@@ -66,6 +67,7 @@ function App() {
               }
             />
             <Route path="/character/:id" element={<Character />} />
+            <Route path="/planets/:id" element={<Planets />} />
           </Routes>
         </Router>
       </UserContext.Provider>

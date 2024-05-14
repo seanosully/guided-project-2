@@ -50,17 +50,19 @@ app.get("/api/characters/:id", async (req, res) => {
   }
 });
 
-app.get("/api/characters/:id", async (req, res) => {
+app.get("/api/characters/:id/planet", async (req, res) => {
   try {
     const { id } = req.params;
     console.log(req.params.id);
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
-    const collection = db.collection("characters");
+    let collection = db.collection("characters");
     const characters = await collection.findOne({ id: parseInt(id) });
-
-    console.log(characters);
-    res.json(characters);
+    collection = db.collection("planets");
+    const planetId = characters.homeworld
+    const planet = await collection.findOne({ id: parseInt(planetId) });
+    console.log(planet);
+    res.json(planet);
   } catch (err) {
     console.error("Error:", err);
     res.status(500).send("Could not get character by id");
